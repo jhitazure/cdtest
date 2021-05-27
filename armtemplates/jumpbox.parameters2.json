@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "location": {
+          "value": "ukwest"
+      },
+      "networkInterfaceName": {
+          "value": "cdtest541"
+      },
+      "networkSecurityGroupName": {
+          "value": "cdtest-nsg"
+      },
+      "networkSecurityGroupRules": {
+          "value": []
+      },
+      "subnetName": {
+          "value": "app"
+      },
+      "virtualNetworkId": {
+          "value": "/subscriptions/ccb637d8-75d9-4444-872a-11dcd1dbcc7c/resourceGroups/rg-cdtest/providers/Microsoft.Network/virtualNetworks/vnet-cdtest"
+      },
+      "virtualMachineName": {
+          "value": "cdtest"
+      },
+      "virtualMachineComputerName": {
+          "value": "cdtest"
+      },
+      "virtualMachineRG": {
+          "value": "rg-cdtest"
+      },
+      "osDiskType": {
+          "value": "Standard_LRS"
+      },
+      "virtualMachineSize": {
+          "value": "Standard_B2ms"
+      },
+      "adminUsername": {
+          "value": "localadmin"
+      },
+      "adminPassword": {
+          "value": null
+      },
+      "patchMode": {
+          "value": "Manual"
+      },
+      "enableHotpatching": {
+          "value": false
+      }
+  }
+}
