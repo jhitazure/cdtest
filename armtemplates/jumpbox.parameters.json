@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualMachineName": {
-      "value": "azwsaprdsutil03"
+      "value": "cdtest"
     },
     "VMSize": {
-      "value": "Standard_D4s_v4"
+      "value": "Standard_B2s"
     },
     "subnetname": {
-      "value": "DMZ"
+      "value": "app"
     },
     "adminUsername": {
       "value": "localadmin"
