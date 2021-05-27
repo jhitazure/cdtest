@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachineName": {
+      "value": "azwsaprdsutil01"
+    },
+    "VMSize": {
+      "value": "Standard_D4s_v4"
+    },
+    "subnetname": {
+      "value": "DMZ"
+    },
+    "adminUsername": {
+      "value": "localadmin"
+    },
+    "adminPassword": {
+      "value": "Welcome123123!"
+    }
+  }
+}

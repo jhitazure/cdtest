@@ -1,0 +1,172 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "virtualMachineName": {
+          "type": "string"
+      },
+      "VMSize": {
+          "type": "string",
+          "metadata": {
+              "description": "Please sleect the Virtual Machine Size"
+          },
+          "defaultValue": "Standard_B2s",
+          "allowedValues": [
+              "Standard_B2s",
+              "Standard_D2s_v3",
+              "Standard_D4_v3",
+              "Standard_D4s_v3",
+              "Standard_D4s_v4",
+              "Standard_A1_v2"
+          ]
+      },
+    "subnetname": {
+      "type": "string",
+      "metadata": {
+        "description": "Choose a Subnet"
+      },
+      "defaultValue": "SharedServices",
+      "allowedValues": [
+        "DMZ",
+        "SharedServices"
+
+      ]
+    },
+      "adminUsername": {
+          "type": "string"
+      },
+      "adminPassword": {
+          "type": "securestring"
+      }
+  },
+  "variables": {
+      
+      "vnetId": "/subscriptions/371a3682-5da5-43c3-9746-fc5ab6333cde/resourceGroups/RG-CORENETWORKPROD/providers/Microsoft.Network/virtualNetworks/VNET-COREPRODUKW",
+      "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+      "networkinterfacename": "[concat(parameters('virtualMachineName'), '-nic01')]"
+  },
+  "resources": [
+      {
+          "name": "[variables('networkinterfacename')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "apiVersion": "2018-04-01",
+          "location": "UK West",
+          
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "subnet": {
+                              "id": "[variables('subnetRef')]"
+                          },
+                          "privateIPAllocationMethod": "Dynamic"
+                          
+                      }
+                  }
+              ]
+              
+          },
+          "tags": {
+              "Environment": "Production",
+              "Business Owner": "Bernie Murphy",
+              "Department": "IT",
+              "Cost Centre": "B726"
+          }
+      },
+      {
+          "name": "[parameters('virtualMachineName')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "apiVersion": "2018-04-01",
+          "location": "UK West",
+          "dependsOn": [
+              "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
+          ],
+        "properties": {
+          "hardwareProfile": {
+            "vmSize": "[parameters('VMSize')]"
+          },
+          "storageProfile": {
+            "osDisk": {
+              "name": "[concat(parameters('virtualMachineName'), '-diskos')]",
+              "createOption": "FromImage",
+              "managedDisk": {
+                "storageAccountType": "Standard_LRS"
+              }
+
+            },
+
+            
+            "imageReference": {
+              "id": "/subscriptions/371a3682-5da5-43c3-9746-fc5ab6333cde/resourceGroups/rg-sapjmpprd/providers/Microsoft.Compute/galleries/images/images/jumpbox/versions/0.0.1"
+          }
+
+
+
+          },
+          "networkProfile": {
+            "networkInterfaces": [
+              {
+                "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+              }
+            ]
+          },
+          "osProfile": {
+            "computerName": "[parameters('virtualMachineName')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "adminPassword": "[parameters('adminPassword')]",
+            "windowsConfiguration": {
+              "enableAutomaticUpdates": true,
+              "provisionVmAgent": true
+            }
+          },
+          "diagnosticsProfile": {
+            "bootDiagnostics": {
+              "enabled": true,
+              "storageUri": "[concat('https://', 'sacorenetworkproddiag','.blob.core.windows.net/')]"
+            }
+          }
+        },
+          "tags": {
+              "Environment": "Production",
+              "Business Owner": "Bernie Murphy",
+              "Department": "IT",
+              "Cost Centre": "B726"
+          }
+      },
+      {
+          "name": "[concat('shutdown-computevm-', parameters('virtualMachineName'))]",
+          "type": "Microsoft.DevTestLab/schedules",
+          "apiVersion": "2017-04-26-preview",
+          "location": "UK West",
+          "dependsOn": [
+              "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+          ],
+          "properties": {
+              "status": "Disabled",
+              "taskType": "ComputeVmShutdownTask",
+              "dailyRecurrence": {
+                  "time": "18:00"
+              },
+              "timeZoneId": "GMT Standard Time", 
+              "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]",
+              "notificationSettings": {
+                  "status": "Disabled",
+                  "timeInMinutes": "30"
+              }
+          },
+          "tags": {
+              "Environment": "Production",
+              "Business Owner": "Bernie Murphy",
+              "Department": "IT",
+              "Cost Centre": "B726"
+          }
+      }
+  ],
+  "outputs": {
+      "adminUsername": {
+          "type": "string",
+          "value": "[parameters('adminUsername')]"
+      }
+  }
+}
