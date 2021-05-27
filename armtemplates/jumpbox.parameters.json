@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualMachineName": {
-      "value": "azwsaprdsutil01"
+      "value": "azwsaprdsutil03"
     },
     "VMSize": {
       "value": "Standard_D4s_v4"
