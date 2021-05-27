@@ -22,4 +22,4 @@ steps:
     csmFileLink: 'https://github.com/jhitazure/cdtest/blob/main/armtemplates/Jumpbox.json'
     csmParametersFileLink: 'https://github.com/jhitazure/cdtest/blob/main/armtemplates/jumpbox.parameters.json'
     deploymentMode: 'Incremental'
-  
+    deploymentName: 'cdtest'
