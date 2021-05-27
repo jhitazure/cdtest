@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'devops'
+    subscriptionId: 'ccb637d8-75d9-4444-872a-11dcd1dbcc7c'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'rg-cdtest'
+    location: 'UK West'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://github.com/jhitazure/cdtest/blob/main/armtemplates/Jumpbox.json'
+    csmParametersFileLink: 'https://github.com/jhitazure/cdtest/blob/main/armtemplates/jumpbox.parameters.json'
+    deploymentMode: 'Incremental'
+  
