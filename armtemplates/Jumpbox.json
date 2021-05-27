@@ -25,9 +25,9 @@
       "metadata": {
         "description": "Choose a Subnet"
       },
-      "defaultValue": "SharedServices",
+      "defaultValue": "app",
       "allowedValues": [
-        "DMZ",
+        "app",
         "SharedServices"
 
       ]
@@ -41,7 +41,7 @@
   },
   "variables": {
       
-      "vnetId": "/subscriptions/371a3682-5da5-43c3-9746-fc5ab6333cde/resourceGroups/RG-CORENETWORKPROD/providers/Microsoft.Network/virtualNetworks/VNET-COREPRODUKW",
+      "vnetId": "/subscriptions/ccb637d8-75d9-4444-872a-11dcd1dbcc7c/resourceGroups/rg-cdtest/providers/Microsoft.Network/virtualNetworks/vnet-cdtest",
       "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
       "networkinterfacename": "[concat(parameters('virtualMachineName'), '-nic01')]"
   },
@@ -120,13 +120,7 @@
               "provisionVmAgent": true
             }
           },
-          "diagnosticsProfile": {
-            "bootDiagnostics": {
-              "enabled": true,
-              "storageUri": "[concat('https://', 'sacorenetworkproddiag','.blob.core.windows.net/')]"
-            }
-          }
-        },
+        
           "tags": {
               "Environment": "Production",
               "Business Owner": "Bernie Murphy",
