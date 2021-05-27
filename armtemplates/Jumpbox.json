@@ -137,34 +137,6 @@
               "Department": "IT",
               "Cost Centre": "B726"
           }
-      },
-      {
-          "name": "[concat('shutdown-computevm-', parameters('virtualMachineName'))]",
-          "type": "Microsoft.DevTestLab/labs/artifactsources",
-          "apiVersion": "2016-05-15",
-          "location": "UK West",
-          "dependsOn": [
-              "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-          ],
-          "properties": {
-              "status": "Disabled",
-              "taskType": "ComputeVmShutdownTask",
-              "dailyRecurrence": {
-                  "time": "18:00"
-              },
-              "timeZoneId": "GMT Standard Time", 
-              "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]",
-              "notificationSettings": {
-                  "status": "Disabled",
-                  "timeInMinutes": "30"
-              }
-          },
-          "tags": {
-              "Environment": "Production",
-              "Business Owner": "Bernie Murphy",
-              "Department": "IT",
-              "Cost Centre": "B726"
-          }
       }
   ],
   "outputs": {
