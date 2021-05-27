@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualMachineName": {
-      "value": "cdtest"
+      "value": "cdtest2"
     },
     "VMSize": {
       "value": "Standard_B2s"
