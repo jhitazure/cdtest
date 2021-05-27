@@ -6,7 +6,7 @@
       "value": "cdtest2"
     },
     "VMSize": {
-      "value": "Standard_B2s"
+      "value": "Standard_D2s_v3"
     },
     "subnetname": {
       "value": "app"
