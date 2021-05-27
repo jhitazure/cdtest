@@ -98,8 +98,12 @@
 
             
             "imageReference": {
-              "id": "/subscriptions/371a3682-5da5-43c3-9746-fc5ab6333cde/resourceGroups/rg-sapjmpprd/providers/Microsoft.Compute/galleries/images/images/jumpbox/versions/0.0.1"
-          }
+              "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2016-Datacenter",
+            "version": "latest"  
+            
+            }
 
 
 
